@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -76,7 +74,6 @@ public class Main {
 				}
 			}
 			if(seatXOfCanSit==-1 && seatX==-1) {
-				
 				boolean check=false;
 				for(int q=0;q<N;q++) {
 					for(int w=0;w<N;w++) {
@@ -96,10 +93,13 @@ public class Main {
 				grid[seatXOfCanSit][seatYOfCanSit]=num;
 			}
 		}
+		
+		//계산
 		int ans=0;
 		for(int i=0;i<N;i++) {
 			for(int j=0;j<N;j++) {
 				int num = grid[i][j];
+				if(num==0) num=info[N*N-1][0];
 				for(int k=0;k<N*N;k++) {
 					if(info[k][0]==num) {
 						num=k;
@@ -111,15 +111,15 @@ public class Main {
 					int newX = i+dx[k];
 					int newY = j+dy[k];
 					if(inRange(newX,newY)) {
-						if(grid[newX][newY]==info[num][1] ||grid[newX][newY]==info[num][4]||grid[newX][newY]==info[num][2]||grid[newX][newY]==info[num][3]) {
+						if(grid[newX][newY]==info[num][1] || grid[newX][newY]==info[num][4]||grid[newX][newY]==info[num][2]||grid[newX][newY]==info[num][3]) {
 							count++;
 						}
 					}
 				}
 				if(count==1) ans+=1;
-				if(count==2) ans+=10;
-				if(count==3) ans+=100;
-				if(count==4) ans+=1000;
+				else if(count==2) ans+=10;
+				else if(count==3) ans+=100;
+				else if(count==4) ans+=1000;
 			}
 		}
 		System.out.println(ans);	
