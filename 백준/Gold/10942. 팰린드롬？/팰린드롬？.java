@@ -6,10 +6,6 @@ public class Main{
     static int[][] memo;
     static StringBuilder sb;
     private static void printIsPalindrome(){
-        if(N==1){
-            sb.append(1).append(System.lineSeparator());
-            return;
-        }
         if(memo[S][E]!=-1){
             sb.append(memo[S][E]).append(System.lineSeparator());
             return;
