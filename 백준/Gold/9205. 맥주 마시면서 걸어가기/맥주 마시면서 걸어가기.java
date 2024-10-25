@@ -33,6 +33,7 @@ public class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
         StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
         for(int t=0;t<T;t++){
             N = Integer.parseInt(br.readLine());
             map = new Pair[N+2];
@@ -48,9 +49,10 @@ public class Main{
             q.offer(0);
             bfs();
 
-            if(visited[N+1]) System.out.println("happy");
-            else System.out.println("sad");
+            if(visited[N+1]) sb.append("happy").append("\n");
+            else sb.append("sad").append("\n");
         }
+        System.out.println(sb);
 
     }
 }
