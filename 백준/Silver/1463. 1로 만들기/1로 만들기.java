@@ -13,7 +13,7 @@ public class Main{
         if(X==1) System.out.println(0);
         if(X==2) System.out.println(1);
         if(X>=3){
-            memo[1]=1;
+            memo[1]=0;
             memo[2]=1;
             memo[3]=1;
             for(int i=4;i<=X;i++){
