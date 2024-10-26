@@ -13,6 +13,7 @@ public class Main{
     static int N,M,x,y,K;
     static int[][] map;
     static int[] dice;
+    static StringBuilder sb= new StringBuilder();
     static Pair status=new Pair(0,1,2);;
     static int[] dx = new int[]{0,0,-1,1};
     static int[] dy = new int[]{1,-1,0,0};
@@ -57,7 +58,7 @@ public class Main{
             }
             x=nx;
             y=ny;
-            System.out.println(dice[status.top]);
+            sb.append(dice[status.top]).append("\n");
         }
     }
 
@@ -83,5 +84,6 @@ public class Main{
         for(int i=0;i<K;i++){
             move(Integer.parseInt(st.nextToken())-1);
         }
+        System.out.println(sb);
     }
 }
