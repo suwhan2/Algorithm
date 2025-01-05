@@ -29,23 +29,32 @@ public class Main{
         if(visited[x][y]) return false;
         return true;
     }
-
-    private static boolean bfs(){
+    private static boolean check(int x,int y){
+        for(int i=0;i<4;i++){
+            int nx = x+dx[i];
+            int ny = y+dy[i];
+            if(inRange(nx,ny) && visited[nx][ny]) return true;
+        }
+        return false;
+    }
+    private static void bfs(){
         while(!q.isEmpty()){
             Pair tmp = q.poll();
             int x = tmp.x;
             int y = tmp.y;
-
-            //불키기
+            
             if(!grid[x][y].isEmpty()){
                 for(Pair p : grid[x][y]){
                     if(!lightState[p.x][p.y]){
                         lightState[p.x][p.y]=true;
                         ans++;
+                        if(!visited[p.x][p.y] && check(p.x,p.y)){
+                            q.offer(new Pair(p.x,p.y));
+                            visited[p.x][p.y]=true;
+                        }
                     }
                 }
                 grid[x][y].clear();
-                return false;
             }
 
             for(int i=0;i<4;i++){
@@ -57,8 +66,8 @@ public class Main{
                 }
             }
         }
-        return true;
     }
+    
     public static void main(String[] args) throws IOException{
         BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st =new StringTokenizer(br.readLine());
@@ -83,18 +92,12 @@ public class Main{
 
             grid[x][y].add(new Pair(a,b));
         }
-
-
-
-
-        while(true){
-            q.clear();
-            visited = new boolean[N+1][N+1];
-            visited[1][1]=true;
-            q.offer(new Pair(1,1));
-            boolean result = bfs();
-            if(result) break;
-        }
+        
+        visited = new boolean[N+1][N+1];
+        visited[1][1]=true;
+        q.offer(new Pair(1,1));
+        bfs();
+            
 
         System.out.println(ans);
     }
