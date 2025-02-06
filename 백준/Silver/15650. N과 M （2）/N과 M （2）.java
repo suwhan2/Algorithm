@@ -1,39 +1,33 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
-public class Main {
-	static int N;
-	static int M;
-	static int numbers[];	
-	
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine()," ");
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		numbers=new int[M];
-		
-		findNumSet(0,1);
-		
-	}
-	
-	private static void findNumSet(int cnt, int start) {
-		if(cnt==M) {
-			for(int t:numbers) {
-				System.out.print(t+" ");
-			}
-			System.out.println();
-			return;
-		}
-		
-		for(int i=start;i<=N;i++) {
+public class Main{
+    // 조합
+    static int N,M;
+    static int[] picked;
+    static StringBuilder sb = new StringBuilder();
+    private static void pick(int cnt,int start){
+        if(cnt==M){
+            for(int p : picked){
+                sb.append(p).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
 
-			numbers[cnt]=i;
-			findNumSet(cnt+1,i+1);
 
-		}
-	}
-	
+        for(int i=start;i<=N;i++){
+            picked[cnt]=i;
+            pick(cnt+1,i+1);
+        }
+    }
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        picked = new int[M];
+        pick(0,1);
+        System.out.println(sb);
+    }
 }
