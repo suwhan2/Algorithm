@@ -12,10 +12,9 @@ class Pair{
 public class Main{
     static int N,M;
     static int ans=0;
-    static int zeroCount=0;
+    static int zeroCount=-3;
     static int[][] grid;
-    static int[] pickList;
-    static int[] picked;
+    static int[] pickList,picked;
     static int[] dx = new int[]{1,0,-1,0};
     static int[] dy = new int[]{0,1,0,-1};
     private static boolean inRange(int x,int y){
@@ -30,7 +29,6 @@ public class Main{
                     q.offer(new Pair(i,j));
                     visited[i][j]=true;
                 }
-
             }
         }
         int virus = 0;
@@ -53,23 +51,16 @@ public class Main{
     }
     private static void simulation(int start,int cnt){
         if(cnt==3){
-            for(int i : picked){
-                grid[(i-1)/M][(i-1)%M]=1;
-            }
-
             int vCount =bfs();
-            ans = Math.max(ans,zeroCount-vCount-3);
-
-            for(int i : picked){
-                grid[(i-1)/M][(i-1)%M]=0;
-            }
+            ans = Math.max(ans,zeroCount-vCount);
             return;
         }
-
         for(int i=start;i<=(N*M);i++){
             if(pickList[i]==0){
                 picked[cnt]=i;
+                grid[(i-1)/M][(i-1)%M]=1;
                 simulation(i+1,cnt+1);
+                grid[(i-1)/M][(i-1)%M]=0;
 
             }
         }
