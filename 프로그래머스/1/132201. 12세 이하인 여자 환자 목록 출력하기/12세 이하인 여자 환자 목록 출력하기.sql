@@ -1,5 +1,4 @@
--- 코드를 입력하세요
-SELECT pt_name, pt_no, gend_cd,age, IFNULL(tlno,'NONE')
-from patient
-where age<=12 and gend_cd ='W'
-order by age desc, pt_name 
+select PT_NAME,PT_NO,GEND_CD,AGE,ifnull(TLNO,'NONE') as TLNO
+from PATIENT
+where AGE<=12 and GEND_CD='W'
+order by age desc,PT_NAME
