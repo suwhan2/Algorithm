@@ -27,15 +27,8 @@ public class Main {
                     break;
                 }
                 default: {
-                    if (target < 0) {
-                        target *= -1;
-                        target /= num[i];
-                        target *= -1;
-                        break;
-                    } else {
-                        target /= num[i];
-                        break;
-                    }
+                    target /= num[i];
+                    break;
                 }
             }
         }
