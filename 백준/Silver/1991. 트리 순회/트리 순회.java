@@ -1,92 +1,70 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-class TreeNode{
-    char value;
-    TreeNode left;
-    TreeNode right;
-    public TreeNode(char value){
-        this.value=value;
+class Node{
+    Character num;
+    Node left;
+    Node right;
+    public Node(Character num){
+        this.num=num;
+        this.left=null;
+        this.right=null;
     }
+
 }
-
-class BTree{
-    public TreeNode root;
-    public void addNode(char value,char left,char right){
-        if(root==null){
-            root = new TreeNode(value);
-        }
-        TreeNode t = findNode(value,root);
-        if(left !='.'){
-            t.left = new TreeNode(left);
-        }
-        if(right !='.'){
-            t.right = new TreeNode(right);
-        }
-    }
-    public TreeNode findNode(char value,TreeNode node){
-        if(node==null){
-            return null;
-        }
-        if(node.value ==value){
-            return node;
-        }
-        TreeNode left = findNode(value,node.left);
-        if(left!=null){
-            return left;
-        }
-        TreeNode right = findNode(value,node.right);
-        if(right!=null){
-            return right;
-        }
-        return null;
-
-    }
-
-    public void preTravel(TreeNode node){
-        if(node==null){
-            return;
-        }
-        System.out.print(node.value);
-        preTravel(node.left);
-        preTravel(node.right);
-    }
-    public void inorderTravel(TreeNode node){
-        if(node==null){
-            return;
-        }
-        inorderTravel(node.left);
-        System.out.print(node.value);
-        inorderTravel(node.right);
-    }
-
-    public void postTravel(TreeNode node){
-        if(node==null){
-            return;
-        }
-        postTravel(node.left);
-        postTravel(node.right);
-        System.out.print(node.value);
-    }
-}
-
 public class Main {
     static int N;
-    public static void main(String[] args) throws IOException {
+    static Node[] tree;
+    public static void preorder(Node node) {
+        if (node == null) return;
+        System.out.print(node.num);
+        preorder(node.left);
+        preorder(node.right);
+    }
+    public static void inorder(Node node) {
+        if (node == null) return;
+        inorder(node.left);
+        System.out.print(node.num);
+        inorder(node.right);
+    }
+
+    public static void postorder(Node node) {
+        if (node == null) return;
+        postorder(node.left);
+        postorder(node.right);
+        System.out.print(node.num);
+    }
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        BTree tree = new BTree();
+        N =Integer.parseInt(br.readLine());
+        tree = new Node[N];
+        StringTokenizer st;
         for(int i=0;i<N;i++){
-            StringTokenizer st= new StringTokenizer(br.readLine());
-            tree.addNode(st.nextToken().charAt(0),st.nextToken().charAt(0),st.nextToken().charAt(0));
+            st=new StringTokenizer(br.readLine());
+            char num = st.nextToken().charAt(0);
+            char left = st.nextToken().charAt(0);
+            char right = st.nextToken().charAt(0);
 
+            if (tree[num - 'A'] == null) {
+                tree[num - 'A'] = new Node(num);
+            }
+            if (left != '.') {
+                tree[left - 'A'] = new Node(left);
+                tree[num - 'A'].left = tree[left - 'A'];
+            }
+            if (right != '.') {
+                tree[right - 'A'] = new Node(right);
+                tree[num - 'A'].right = tree[right - 'A'];
+            }
         }
-        tree.preTravel(tree.root);
-        System.out.println();
-        tree.inorderTravel(tree.root);
-        System.out.println();
-        tree.postTravel(tree.root);
+
+        preorder(tree[0]);
         System.out.println();
 
+        inorder(tree[0]);
+        System.out.println();
+
+        postorder(tree[0]);
+        System.out.println();
     }
 }
