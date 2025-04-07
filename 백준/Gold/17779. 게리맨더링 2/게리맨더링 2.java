@@ -6,7 +6,6 @@ public class Main {
     static int[][] grid;
     static int ans = Integer.MAX_VALUE;
     private static int calculate(int x,int y,int d1,int d2){
-//        System.out.println(x+" "+y+" "+d1+" "+d2);
         int[] sum = new int[6];
         int[][] mark = new int[N][N];
 
@@ -66,13 +65,11 @@ public class Main {
         //계산
         for(int i=0;i<N;i++){
             for(int j=0;j<N;j++){
-//                System.out.print(mark[i][j]+" ");
                 if(mark[i][j]==0) mark[i][j]=5;
                 sum[mark[i][j]]+=grid[i][j];
             }
-//            System.out.println();
         }
-//        System.out.println("___________________");
+
         // 최대 최소 반환
         int maxSum = 0;
         int minSum = Integer.MAX_VALUE;
@@ -108,9 +105,16 @@ public class Main {
             }
         }
 
-        for(int i=0;i<N-2;i++){
-            for(int j=1;j<N-1;j++){
-                simulation(i,j);
+        for (int x = 0; x < N; x++) {
+            for (int y = 0; y < N; y++) {
+                for (int d1 = 1; d1 < N; d1++) {
+                    for (int d2 = 1; d2 < N; d2++) {
+                        if (x + d1 + d2 >= N) continue;
+                        if (y - d1 < 0 || y + d2 >= N) continue;
+
+                        ans = Math.min(ans,calculate(x,y,d1,d2));
+                    }
+                }
             }
         }
         System.out.println(ans);
