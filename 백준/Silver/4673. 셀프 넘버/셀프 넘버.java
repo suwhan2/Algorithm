@@ -11,7 +11,7 @@ public class Main {
         for(int i=1;i<=10000;i++){
             int n = i;
             if(check[n]) continue;
-            while(n<=10000){
+            while(true){
                 n=calculate(n);
                 if(n>10000) break;
                 check[n]=true;
