@@ -1,19 +1,13 @@
 import java.io.*;
 import java.util.*;
 
-class Pair{
-    int num,imp;
-    public Pair(int num, int imp) {
-        this.num = num;
-        this.imp = imp;
-    }
-}
 public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
         int T= Integer.parseInt(br.readLine());
         StringTokenizer st;
         StringBuilder sb= new StringBuilder();
+        
         for(int t=0;t<T;t++){
             Queue<Integer> q = new ArrayDeque<>();
 
@@ -35,14 +29,11 @@ public class Main {
 
                 for(int i=0;i<N;i++){
                     if(cur==i)continue;
-                    if(impList[cur]<impList[i]){
-                        cantOut=true;
-                    }
+                    if(impList[cur]<impList[i])cantOut=true;
                 }
 
-                if(cantOut){
-                    q.offer(cur);
-                }else{
+                if(cantOut) q.offer(cur);
+                else{
                     if(cur==M){
                         sb.append(cnt).append("\n");
                         break;
