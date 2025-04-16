@@ -5,7 +5,6 @@ public class Main {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        List<Integer> inputList= new ArrayList<>();
         int[] cnt = new int[8001];
         int sum=0;
 
@@ -17,8 +16,7 @@ public class Main {
 
             min = Math.min(min,input);
             max = Math.max(max,input);
-
-            inputList.add(input);
+            
             cnt[input+4000]++;
         }
 
