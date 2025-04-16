@@ -6,12 +6,11 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         List<Integer> inputList= new ArrayList<>();
-        int[] cnt = new int[4000*2+1];
+        int[] cnt = new int[8001];
         int sum=0;
 
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
-        int maxCnt = 0 ;
         for(int i=0;i<n;i++){
             int input= Integer.parseInt(br.readLine());
             sum+=input;
@@ -21,26 +20,32 @@ public class Main {
 
             inputList.add(input);
             cnt[input+4000]++;
-            maxCnt = Math.max(maxCnt,cnt[input+4000]);
         }
-        Collections.sort(inputList);
 
-        List<Integer> cntList = new ArrayList<>();
+        int maxf = 0, maxv = -4001, mid = 0, midf = 0;
+        boolean isSecond = false, findMid = false;
+        for(int i=min+4000; i<= max+4000;i++){
+            if (maxf < cnt[i]) {
+                maxf = cnt[i];
+                maxv = i;
+                isSecond = false;
+            } else if (maxf == cnt[i] && !isSecond) {
+                maxv = i;
+                isSecond = true;
+            }
 
-        for(int i=0;i<cnt.length;i++){
-            if(cnt[i]==maxCnt){
-                cntList.add(i-4000);
+            midf += cnt[i];
+            if (!findMid && midf >= n / 2 + 1) {
+                mid = i - 4000;
+                findMid = true;
             }
         }
 
-        Collections.sort(cntList);
-
-        System.out.println(Math.round((float)sum/n));
-        System.out.println(inputList.get(n/2));
-        if(cntList.size()==1){
-            System.out.println(cntList.get(0));
-        }else System.out.println(cntList.get(1));
-        System.out.println(max-min);
-
+        StringBuilder sb = new StringBuilder();
+        sb.append(Math.round((double) sum / n)).append('\n');
+        sb.append(mid).append('\n');
+        sb.append(maxv - 4000).append('\n');
+        sb.append(max - min).append('\n');
+        System.out.println(sb);
     }
 }
