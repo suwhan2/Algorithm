@@ -1,43 +1,34 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
-	static int N;
-	static int[] arr;
-	static int[][] memo;
-	
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N =Integer.parseInt(br.readLine());
-        arr = new int[N];
-        memo = new int[2][N];
-        for(int i=0;i<N;i++) {
-        	arr[i] = Integer.parseInt(br.readLine());
+        int n  = Integer.parseInt(br.readLine());
+        int[] stair = new int[n+1];
+        int[][] memo = new int[2][n+1];
+        for(int i=0;i<n;i++){
+            stair[i+1]=Integer.parseInt(br.readLine());
         }
-        
-        if(N==1) {
-        	System.out.println(arr[0]);
-        }else {
-        	memo[1][0]=arr[0];
-            memo[0][0]=0;
-            
-            memo[1][1]=arr[1]+arr[0];
-            memo[0][1] = arr[0];
-            
-            for(int q=2;q<N;q++) {
-            	memo[0][q] = memo[1][q-1];
-            	memo[1][q] = Math.max(memo[1][q-2],memo[0][q-2]+arr[q-1])+arr[q];
-            			
+
+        if(n==1) System.out.println(stair[1]);
+        else{
+            memo[0][1] = 0;
+            memo[1][1]=stair[1];
+
+            memo[0][2] = stair[1];
+            memo[1][2] = stair[1]+stair[2];
+
+
+            for(int i=3;i<=n;i++){
+                memo[0][i] =memo[1][i-1];
+                memo[1][i] = Math.max(memo[1][i-2],memo[0][i-2]+stair[i-1])+stair[i];
             }
-            
-            System.out.println(memo[1][N-1]);
+
+            System.out.println(memo[1][n]);
         }
-          
     }
+
 }
-
-
